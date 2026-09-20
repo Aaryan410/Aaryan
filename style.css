@@ -21,9 +21,23 @@ body {
     background: var(--black);
     border: 2px solid var(--green);
     padding: 20px;
-    margin-bottom: 20px;
 }
 
 a {
     color: var(--green)
 }
+
+.wrap {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-areas: 
+        "photo info"
+        "links links";
+    gap: 20px;
+}
+
+.photo-box { grid-area: photo; }
+.info-box { grid-area: info; }
+.links-box { grid-area: links; }
