@@ -17,7 +17,7 @@ resize();
 window.addEventListener("resize", resize);
 
 const chars = ["0", "1", "const", "let", "if", "for", "=>", "{}", "();", "&&", "sudo", "0x", "int", "def", "==", "++"];
-const fontSize = 16;
+const fontSize = window.innerWidth < 600 ? 22 : 16;
 
 let columns = Math.floor(canvas.width / fontSize);
 let drops = [];
