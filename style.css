@@ -1,6 +1,7 @@
 :root {
     --green: #00ff41;
     --black: #000000;
+    --gap: clamp(16px, 5vw, 80px);
 }
 
 * {
@@ -9,12 +10,16 @@
     padding: 0;
 }
 
+html, body {
+    height: 100%; 
+}
+
 body {
     background: var(--black);
     color: var(--green);
     font-family: "Space Grotesk", sans-serif;
     line-height: 1.6;
-    padding: 24px;
+    padding: var(--gap);
 }
 
 .box {
@@ -24,18 +29,18 @@ body {
 }
 
 a {
-    color: var(--green)
+    color: var(--green);
 }
 
 .wrap {
-    max-width: 1040px;
-    margin: 0 auto;
+    min-height: calc(100vh - 2 * var(--gap));
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: minmax(260px, 30%) 1fr;
+    grid-template-rows: 1fr auto;
     grid-template-areas: 
         "photo info"
         "links links";
-    gap: 20px;
+    gap: 16px;
 }
 
 .photo-box { grid-area: photo; }
