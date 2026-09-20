@@ -2,6 +2,7 @@
     --green: #00ff41;
     --black: #000000;
     --gap: clamp(16px, 5vw, 80px);
+    --green-dim: #00b32c;
 }
 
 * {
@@ -82,4 +83,84 @@ a {
 .prompt {
     color: var(--green);
     font-weight: 700;
+}
+
+.link {
+    transition: background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s;
+}
+
+.link:hover,
+.link:focus-visible {
+    background: var(--green);
+    color: var(--black);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 0 var(--green-dim), 0 0 26px rgba(0, 255, 65, 0.45);
+    outline: none;
+}
+
+.photo-slot {
+    overflow: hidden;
+}
+
+.photo-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(1) contrast(1.15) brightness(0.9) sepia(1) hue-rotate(65deg) saturate(3);
+}
+
+.photo-slot:hover img {
+    filter: none;
+}
+
+.name {
+    position: relative;
+    display: inline-block;
+    cursor: default;
+    animation: jitter 3s steps(1) infinite;
+}
+
+.name::before,
+.name::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    animation: ghost 3s steps(1) infinite;
+}
+
+.name::before {
+    color: #00ffd5;
+    transform: translate(-3px, 0);
+    clip-path: inset(0 0 55% 0);
+}
+
+.name::after {
+    color: #b8ff00;
+    transform: translate(3px, 0);
+    clip-path: inset(50% 0 0 0);
+}
+
+.name.glitch {
+    animation: jitter 0.35s steps(2) 1;
+}
+
+.name.glitch::before,
+.name.glitch::after {
+    opacity: 0.85;
+}
+
+@keyframes jitter {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-2px, 1px); }
+    50% { transform: translate(2px, -1px); }
+    75% { transform: translate(-1px, -1px); }
+    100% { transform: translate(0, 0); }
+}
+
+@keyframes ghost {
+    0%, 88%, 100% { opacity: 0; }
+    90%, 96% { opacity: 0.85; }
 }
