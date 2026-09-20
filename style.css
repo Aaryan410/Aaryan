@@ -46,3 +46,14 @@ a {
 .photo-box { grid-area: photo; }
 .info-box { grid-area: info; }
 .links-box { grid-area: links; }
+
+#rain {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+}
+
+.wrap {
+    position: relative;
+    z-index: 1;
+}
