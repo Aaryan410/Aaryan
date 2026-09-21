@@ -49,6 +49,7 @@ setInterval(draw, 33);
 const lines = [
     "whoami?",
     "student dev",
+    "techie",
     "python | c++ | ml | cybersecurity",
     "codeforces grinder",
     "hack club member",

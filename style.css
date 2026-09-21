@@ -36,12 +36,12 @@ a {
 .wrap {
     min-height: calc(100vh - 2 * var(--gap));
     display: grid;
-    grid-template-columns: minmax(260px, 30%) 1fr;
+    grid-template-columns: minmax(260px, 24%) 1fr minmax(240px, 28%);
     grid-template-rows: auto 1fr auto;
     grid-template-areas: 
-        "photo info"
-        "photo certs"
-        "links links";
+        "photo info projects"
+        "photo certs projects"
+        "links links links";
     gap: 16px;
 }
 
@@ -56,6 +56,17 @@ a {
 
 .links-box { 
     grid-area: links; 
+}
+
+.projects-box {
+    grid-area: projects;
+}
+
+.links-box,
+.certs-box,
+.projects-box {
+    display: flex;
+    flex-direction: column;
 }
 
 #rain {
@@ -217,11 +228,12 @@ a {
 @media (max-width: 860px) {
     .wrap {
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto auto;
+        grid-template-rows: auto auto auto auto auto;
         grid-template-areas: 
             "photo"
             "info"
             "certs"
+            "projects"
             "links";
     }
 
@@ -260,6 +272,7 @@ a {
         grid-template-areas:
             "photo info"
             "links certs"
+            "projects projects"
             ".     certs";
         align-items: start;
     }
