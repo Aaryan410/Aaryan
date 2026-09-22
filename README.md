@@ -9,7 +9,7 @@
 Just plain HTML, CSS and JS site deployed.
 
 ## Image
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 ## Theme
 - It is hacker-terminal-based personal portfolio site, with black and green colors since it looks cool and also fits in my interest like ML and Cybersecurity.
