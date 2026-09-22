@@ -31,7 +31,7 @@ Just plain HTML, CSS and JS site deployed.
 - Glitch effect on my name.
 
 ## Run locally
-- run "git clone https://github.com/Aaryan410/Aaryan"
+- run "git clone https://github.com/Aaryan410/Aaryan" on your terminal.
 - and just directly run the index.html by double clicking the file on your computer.
 
 ## License
