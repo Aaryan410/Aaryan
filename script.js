@@ -28,7 +28,7 @@ const reducedMotion = window.matchMedia(
 
     function makeParticle() {
         const angle = random(0, Math.PI * 2);
-        const speed = random(3, 9);
+        const speed = random(8, 22);
 
         return {
             x: random(0, width),
@@ -41,7 +41,7 @@ const reducedMotion = window.matchMedia(
             offsetY: 0,
 
             radius: random(0.5, 1),
-            opacity: random(0.2, 0.65),
+            opacity: random(0.25, 0.75),
 
             angle
         };
@@ -93,11 +93,11 @@ const reducedMotion = window.matchMedia(
         }
 
         const mobile = width < 700;
-        const count = Math.round(width * height / 11000);
+        const count = Math.round(width * height / 5000);
 
         const target = Math.max(
-            mobile ? 20 : 80,
-            Math.min(mobile ? 50 : 150, count)
+            mobile ? 45 : 160,
+            Math.min(mobile ? 100 : 340, count)
         );
 
         particles.length = Math.min(

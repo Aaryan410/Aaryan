@@ -75,6 +75,9 @@ a {
     min-width: 0;
     background: var(--black);
     border: 2px solid var(--white);
+    box-shadow:
+        0 0 9px rgb(255 255 255 / 22%),
+        0 0 24px rgb(255 255 255 / 10%);
     padding: 20px;
     overflow-wrap: anywhere;
 }
