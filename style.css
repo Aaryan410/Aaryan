@@ -212,12 +212,11 @@ a {
 }
 
 .link:hover {
-    background: var(--white);
-    color: var(--black);
+    background: #333333;
 }
 
 .link:hover .link-user {
-    color: #333333;
+    color: #cccccc;
 }
 
 a:focus-visible {
