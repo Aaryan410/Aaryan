@@ -4,6 +4,67 @@ const reducedMotion = window.matchMedia(
     "(prefers-reduced-motion: reduce)"
 );
 
+// Shift a pre-rendered grain texture at 10 fps, like a film overlay.
+(() => {
+    const canvas = document.getElementById("grain");
+    const context = canvas?.getContext("2d");
+    if (!context) return;
+
+    const tileSize = 512;
+    const tile = document.createElement("canvas");
+    tile.width = tile.height = tileSize;
+    const tileContext = tile.getContext("2d");
+    if (!tileContext) return;
+
+    const pixels = tileContext.createImageData(tileSize, tileSize);
+    for (let index = 0; index < pixels.data.length; index += 4) {
+        pixels.data[index] = 255;
+        pixels.data[index + 1] = 255;
+        pixels.data[index + 2] = 255;
+        pixels.data[index + 3] = Math.random() * 20;
+    }
+    tileContext.putImageData(pixels, 0, 0);
+
+    const texture = context.createPattern(tile, "repeat");
+    if (!texture) return;
+
+    let timer = null;
+
+    function drawGrain() {
+        const offsetX = Math.floor(Math.random() * tileSize);
+        const offsetY = Math.floor(Math.random() * tileSize);
+
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.save();
+        context.translate(-offsetX, -offsetY);
+        context.fillStyle = texture;
+        context.fillRect(offsetX, offsetY, canvas.width, canvas.height);
+        context.restore();
+    }
+
+    function resizeGrain() {
+        // One texture pixel per CSS pixel keeps the grain visible on HiDPI.
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        drawGrain();
+    }
+
+    function syncGrain() {
+        clearInterval(timer);
+        timer = null;
+        if (!document.hidden && !reducedMotion.matches) {
+            timer = setInterval(drawGrain, 100);
+        }
+    }
+
+    window.addEventListener("resize", resizeGrain, { passive: true });
+    document.addEventListener("visibilitychange", syncGrain);
+    reducedMotion.addEventListener("change", syncGrain);
+
+    resizeGrain();
+    syncGrain();
+})();
+
 // Small white particles behind the page.
 (() => {
     const canvas = document.getElementById("particles");
@@ -41,7 +102,7 @@ const reducedMotion = window.matchMedia(
             offsetY: 0,
 
             radius: random(0.5, 1),
-            opacity: random(0.25, 0.75),
+            opacity: random(0.18, 0.5),
 
             angle
         };

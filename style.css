@@ -35,8 +35,9 @@ a {
     color: var(--white);
 }
 
-/* Background particles */
+/* Background texture and particles */
 
+#grain,
 #particles {
     position: fixed;
     inset: 0;
