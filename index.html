@@ -2,99 +2,230 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#101110">
-  <meta name="description" content="Aaryan Jadav — developer, curious learner, and builder. Explore my projects, certificates, and journey into machine learning.">
-  <title>Aaryan Jadav — Developer & Curious Human</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23c6f566'/%3E%3Ctext x='32' y='44' font-family='Arial' font-weight='bold' font-size='36' text-anchor='middle' fill='%23101110'%3Ea.%3C/text%3E%3C/svg%3E">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta
+    name="description"
+    content="Aaryan Jadav — student and developer building web applications and exploring machine learning."
+  >
+  <meta name="theme-color" content="#000000">
+
+  <title>Aaryan Jadav — Developer</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <div class="reading-progress" aria-hidden="true"></div>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  >
 
-  <header class="site-header">
-    <div class="container nav-wrap">
-      <a class="wordmark" href="#home" aria-label="Aaryan Jadav, home">aaryan<span>.</span></a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open navigation"><span></span><span></span></button>
-      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
-        <a href="#projects">Projects</a>
-        <a href="#about">About</a>
-        <a href="#certificates">Certificates</a>
-        <a class="nav-contact" href="#connect">Let’s connect <span aria-hidden="true">↗</span></a>
-      </nav>
-    </div>
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+
+<body id="top">
+  <!-- Decorative background. It never captures clicks or keyboard focus. -->
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <header class="site-header container">
+    <a class="wordmark" href="#top" aria-label="Aaryan Jadav, home">
+      AJ.
+    </a>
+
+    <nav aria-label="Main navigation">
+      <ul class="navigation" role="list">
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main id="main">
-    <section class="hero container" id="home" aria-labelledby="hero-title">
-      <div class="hero-copy">
-        <div class="eyebrow"><span class="status-dot"></span> STUDENT. DEVELOPER. ALWAYS CURIOUS.</div>
-        <h1 id="hero-title">Curiosity,<br>meet <span class="code-word">code<span class="period">.</span><svg viewBox="0 0 360 20" fill="none" aria-hidden="true"><path d="M4 13C92 1 234 1 353 9M34 17C147 8 248 9 319 13" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg></span></h1>
-        <p class="hero-intro">Hey, I’m <strong>Aaryan Jadav</strong> <span class="wave" aria-hidden="true">✳</span><br>I turn “what if?” into things you can use. Building for the web, exploring machine learning, and figuring it out one project at a time.</p>
-        <div class="hero-actions"><a class="button button-lime" href="#projects">Explore my work <span aria-hidden="true">↗</span></a><a class="text-link" href="#about">A little about me <span aria-hidden="true">↓</span></a></div>
-        <div class="hero-footnote"><span class="tiny-cross" aria-hidden="true">+</span> BASED IN INDIA <span class="footnote-divider">/</span> BUILDING ON THE INTERNET</div>
-      </div>
-      <div class="hero-art" aria-label="Abstract orbital illustration with a code symbol, inspired by curiosity and experimentation" role="img">
-        <div class="art-grid"></div><div class="art-coordinate coordinate-top">EXPERIMENT_001</div><div class="art-coordinate coordinate-bottom">IDEAS → CODE → REALITY</div>
-        <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
-        <div class="planet"><div class="planet-highlight"></div><span>&lt;/&gt;</span></div>
-        <div class="satellite satellite-lime"></div><div class="satellite satellite-orange"></div><div class="spark spark-one">✳</div><div class="spark spark-two">+</div>
-        <div class="floating-label label-top"><span class="label-dot"></span> always learning</div>
-        <div class="floating-label label-bottom"><span class="terminal-symbol">&gt;_</span> making things happen</div>
-        <div class="art-index">01 / ∞</div>
+  <main id="main-content" class="container">
+    <section class="hero" aria-labelledby="hero-title">
+      <p class="eyebrow">Student &amp; developer / India</p>
+
+      <h1 id="hero-title">Aaryan Jadav<span>.</span></h1>
+
+      <p class="hero-bio">
+        I build web apps and learn by turning questions into projects.
+      </p>
+
+      <div class="link-row hero-links">
+        <a class="text-link" href="#projects">Selected projects</a>
+        <a class="text-link" href="https://github.com/Aaryan410">
+          GitHub
+        </a>
+        <a class="text-link" href="#contact">Get in touch</a>
       </div>
     </section>
 
-    <div class="interests-strip" aria-label="Areas of interest"><div class="container strip-content"><span>WEB DEVELOPMENT</span><b aria-hidden="true">✳</b><span>MACHINE LEARNING</span><b aria-hidden="true">✳</b><span>OPEN SOURCE</span><b aria-hidden="true">✳</b><span>CREATIVE PROBLEM SOLVING</span></div></div>
+    <section
+      id="projects"
+      class="section section-grid"
+      aria-labelledby="projects-title"
+    >
+      <div class="section-heading">
+        <p class="section-index" aria-hidden="true">01 /</p>
+        <h2 id="projects-title">Selected projects</h2>
+      </div>
 
-    <section class="section container" id="projects" aria-labelledby="projects-title">
-      <div class="section-heading reveal"><div><p class="eyebrow section-label"><span>01</span> SELECTED WORK</p><h2 id="projects-title">Ideas out in <span class="serif-word">the wild.</span></h2></div><p class="section-aside">Built out of curiosity.<br>Made to do something useful.</p></div>
-      <div class="project-toolbar reveal"><div class="project-filters" role="group" aria-label="Filter projects"><button type="button" class="filter active" data-filter="all" aria-pressed="true">All projects <span>03</span></button><button type="button" class="filter" data-filter="web" aria-pressed="false">Web apps</button><button type="button" class="filter" data-filter="ml" aria-pressed="false">Machine learning</button></div><span class="project-count" aria-live="polite">3 projects</span></div>
-      <div class="project-grid">
-        <article class="project-card project-featured reveal" data-category="web">
-          <div class="project-visual visual-truth" aria-hidden="true">
-            <span class="visual-label">HARDWARE, WITH PERSPECTIVE.</span>
-            <div class="truth-window"><div class="window-toolbar"><span class="window-dots"><i></i><i></i><i></i></span><span>truthlens / compare</span><span>↗</span></div><div class="truth-content"><div class="mock-brand">TruthLens<span>↗</span></div><p>Big decisions.<br><strong>Clear comparisons.</strong></p><div class="mock-chips"><span>CPU</span><span>GPU</span></div><div class="comparison-bars"><div><span>Single-core</span><i style="--bar-width:80%"></i><i style="--bar-width:62%"></i></div><div><span>Multi-core</span><i style="--bar-width:67%"></i><i style="--bar-width:92%"></i></div></div><div class="mock-foot">LESS GUESSWORK. MORE CONTEXT.</div></div></div>
-            <span class="visual-caption">INTERFACE CONCEPT</span><div class="truth-sticker">TL<span>✳</span></div>
+      <div class="project-list">
+        <article class="project" aria-labelledby="truthlens-title">
+          <div class="project-heading">
+            <h3 id="truthlens-title">TruthLens</h3>
+            <span class="project-category">Extension / Web app</span>
           </div>
-          <div class="project-info"><div class="project-topline"><span class="project-number">PROJECT / 001</span><span class="project-type"><span></span> Browser extension + web app</span></div><h3>TruthLens<span class="project-title-icon" aria-hidden="true">↗</span></h3><p>Look past the spec sheet. A browser extension and comparison website that put hardware benchmarks and AI summaries in context.</p><div class="tags"><span>Python</span><span>Flask</span><span>JavaScript</span><span>AI</span></div><div class="project-actions"><a class="project-link" href="https://github.com/Aaryan410/TruthLens" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a><button class="project-detail" type="button" data-project="truthlens" aria-label="Read more about TruthLens">Behind the project <span aria-hidden="true">+</span></button></div></div>
+
+          <p class="project-description">
+            A browser extension and website for comparing CPUs and GPUs.
+            Hardware benchmarks and AI summaries help put the specifications
+            in context.
+          </p>
+
+          <ul class="tech-list" aria-label="Technologies used" role="list">
+            <li>Python</li>
+            <li>Flask</li>
+            <li>JavaScript</li>
+          </ul>
+
+          <a
+            class="text-link project-link"
+            href="https://github.com/Aaryan410/TruthLens"
+            aria-label="View TruthLens source on GitHub"
+          >
+            View source <span aria-hidden="true">↗</span>
+          </a>
         </article>
-        <article class="project-card reveal" data-category="web">
-          <div class="project-visual visual-crack" aria-hidden="true"><span class="visual-label">PRACTICE. REFLECT. REPEAT.</span><div class="crack-window"><div class="crack-side"><b>crack<span>.</span></b><i></i><i></i><i></i><div>↗</div></div><div class="crack-dashboard"><span>YOUR NEXT CHAPTER STARTS HERE</span><h4>A little better,<br>every interview.</h4><div class="crack-chart"><i style="--height:30%"></i><i style="--height:48%"></i><i style="--height:41%"></i><i style="--height:65%"></i><i style="--height:57%"></i><i style="--height:79%"></i><i style="--height:95%"></i></div><div class="crack-chart-label"><span>PRACTICE</span><span>PROGRESS ↗</span></div></div></div><span class="visual-caption">INTERFACE CONCEPT</span><span class="crack-spark">✳</span></div>
-          <div class="project-info"><div class="project-topline"><span class="project-number">PROJECT / 002</span><span class="project-type">Web app</span></div><h3>Crack<span class="project-title-icon" aria-hidden="true">↗</span></h3><p>Interview practice with a feedback loop. Track your progress, review evaluations, and take away a downloadable report.</p><div class="tags"><span>Python</span><span>Flask</span><span>Supabase</span></div><div class="project-actions"><a class="project-link" href="https://github.com/Aaryan410/Crack" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a><button class="project-detail" type="button" data-project="crack" aria-label="Read more about Crack">Details <span aria-hidden="true">+</span></button></div></div>
+
+        <article class="project" aria-labelledby="crack-title">
+          <div class="project-heading">
+            <h3 id="crack-title">Crack</h3>
+            <span class="project-category">Web app</span>
+          </div>
+
+          <p class="project-description">
+            An interview practice app with evaluations, progress graphs,
+            and downloadable PDF reports. A personal dashboard keeps
+            previous interviews in one place.
+          </p>
+
+          <ul class="tech-list" aria-label="Technologies used" role="list">
+            <li>Python</li>
+            <li>Flask</li>
+            <li>Supabase</li>
+          </ul>
+
+          <a
+            class="text-link project-link"
+            href="https://github.com/Aaryan410/Crack"
+            aria-label="View Crack source on GitHub"
+          >
+            View source <span aria-hidden="true">↗</span>
+          </a>
         </article>
-        <article class="project-card reveal" data-category="ml">
-          <div class="project-visual visual-calculator" aria-hidden="true"><span class="visual-label">MATH, IN YOUR OWN WORDS.</span><span class="math-symbol math-one">∑</span><span class="math-symbol math-two">x²</span><div class="calc-window"><div class="calc-heading"><span class="calc-icon">⌘</span><span>Calculator <small>NATURAL LANGUAGE → MATH</small></span><i></i></div><div class="calc-question">Find the roots of x² − 5x + 6 <span>↵</span></div><div class="calc-answer"><span>A LITTLE LANGUAGE. A LITTLE LOGIC.</span><div>x = <b>2</b><em>or</em>x = <b>3</b></div></div></div><span class="visual-caption">ILLUSTRATIVE CONCEPT · IN DEVELOPMENT</span></div>
-          <div class="project-info"><div class="project-topline"><span class="project-number">PROJECT / 003</span><span class="project-type"><span class="purple-dot"></span> In progress</span></div><h3>Calculator<span class="project-title-icon" aria-hidden="true">↗</span></h3><p>An exploration of natural language and math. Working toward a solver that understands a question the way you’d ask a teacher.</p><div class="tags"><span>Python</span><span>Machine learning</span><span>NLP</span></div><div class="project-actions"><a class="project-link" href="https://github.com/Aaryan410/Calculator" target="_blank" rel="noopener noreferrer">View source <span aria-hidden="true">↗</span></a><button class="project-detail" type="button" data-project="calculator" aria-label="Read more about Calculator">Details <span aria-hidden="true">+</span></button></div></div>
+
+        <article class="project" aria-labelledby="calculator-title">
+          <div class="project-heading">
+            <h3 id="calculator-title">Calculator</h3>
+            <span class="project-category">In development</span>
+          </div>
+
+          <p class="project-description">
+            A project exploring how to solve high-school math questions
+            written in ordinary English. I’m building it as I learn
+            machine learning and natural language processing.
+          </p>
+
+          <ul class="tech-list" aria-label="Technologies and focus" role="list">
+            <li>Python</li>
+            <li>Machine learning</li>
+            <li>NLP</li>
+          </ul>
+
+          <a
+            class="text-link project-link"
+            href="https://github.com/Aaryan410/Calculator"
+            aria-label="View Calculator source on GitHub"
+          >
+            View source <span aria-hidden="true">↗</span>
+          </a>
         </article>
       </div>
-      <a class="all-code-link reveal" href="https://github.com/Aaryan410?tab=repositories" target="_blank" rel="noopener noreferrer">There’s more where that came from. <strong>All my code on GitHub <span aria-hidden="true">↗</span></strong></a>
     </section>
 
-    <section class="about-section" id="about" aria-labelledby="about-title"><div class="container about-grid">
-      <div class="about-visual reveal"><div class="about-top"><span>A BIT OF THE HUMAN<br>BEHIND THE CODE</span><span>↘</span></div><div class="about-monogram">aj<span>✳</span></div><div class="about-bottom"><span>AARYAN JADAV</span><span>INDIA ↗</span></div></div>
-      <div class="about-copy reveal"><p class="eyebrow section-label"><span>02</span> THE SHORT VERSION</p><h2 id="about-title">A work in progress.<br><span class="serif-word">And proud of it.</span></h2><p>I’m a student and developer who learns best by making things. One day it’s a browser extension, the next it’s an interview app—or a deep dive into how machines learn.</p><p>I’ve built my foundations with CS50x and CS50P. Now I’m exploring machine learning, NLP, and the occasional Linux rabbit hole. I’m also part of Hack Club, where the idea is simple: keep building.</p><div class="toolkit"><h3>THINGS I WORK WITH</h3><div class="skill-tags"><span>Python</span><span>C</span><span>JavaScript</span><span>HTML & CSS</span><span>Flask</span><span>Git & GitHub</span><span>Linux</span></div></div><div class="learning-note"><span aria-hidden="true">↗</span><div><span>CURRENTLY EXPLORING</span><p>Machine learning & natural language processing</p></div></div></div>
-    </div></section>
+    <section
+      id="about"
+      class="section section-grid"
+      aria-labelledby="about-title"
+    >
+      <div class="section-heading">
+        <p class="section-index" aria-hidden="true">02 /</p>
+        <h2 id="about-title">About</h2>
+      </div>
 
-    <section class="section container certificates-section" id="certificates" aria-labelledby="certificates-title"><div class="section-heading reveal"><div><p class="eyebrow section-label"><span>03</span> LEARNING, DOCUMENTED</p><h2 id="certificates-title">Small steps.<br><span class="serif-word">Solid foundations.</span></h2></div><p class="section-aside">A few milestones from<br>an ongoing learning journey.</p></div><div class="certificates-grid">
-      <article class="certificate-card reveal"><div class="certificate-top"><div class="certificate-seal" aria-hidden="true">CS<span>50</span></div><span class="completed-badge">✓ COURSE COMPLETED</span></div><div class="certificate-body"><span class="certificate-provider">HARVARD UNIVERSITY · CS50</span><h3>CS50x</h3><p>Introduction to Computer Science</p><span class="certificate-description">From C and algorithms to databases and the web. The foundations that started it all.</span></div><div class="certificate-bottom"><span class="credential-status">Certificate link coming soon</span><button type="button" data-certificate="cs50x" aria-label="View CS50x course details">Course details <span aria-hidden="true">↗</span></button></div></article>
-      <article class="certificate-card reveal"><div class="certificate-top"><div class="certificate-seal python-seal" aria-hidden="true">Py<span>_</span></div><span class="completed-badge">✓ COURSE COMPLETED</span></div><div class="certificate-body"><span class="certificate-provider">HARVARD UNIVERSITY · CS50</span><h3>CS50P</h3><p>Introduction to Programming with Python</p><span class="certificate-description">Writing, testing, and debugging Python. Turning ideas into programs, one function at a time.</span></div><div class="certificate-bottom"><span class="credential-status">Certificate link coming soon</span><button type="button" data-certificate="cs50p" aria-label="View CS50P course details">Course details <span aria-hidden="true">↗</span></button></div></article>
-    </div><p class="learning-footer reveal"><span class="status-dot"></span> The learning doesn’t stop at a certificate.</p></section>
+      <div class="about-copy">
+        <p class="about-lead">
+          I like understanding how things work, then trying to build
+          something with what I’ve learned.
+        </p>
 
-    <section class="connect-section" id="connect" aria-labelledby="connect-title"><div class="container"><div class="connect-heading reveal"><p class="eyebrow section-label"><span>04</span> FIND ME AROUND</p><h2 id="connect-title">Good things start<br>with a <span>hello<span class="hello-star" aria-hidden="true">✳</span></span>.</h2><p>Have an interesting idea, a project, or a shared curiosity?<br>Find me online. Let’s make something worth making.</p></div><div class="social-grid reveal">
-      <a class="social-card" data-social="github" href="https://github.com/Aaryan410" target="_blank" rel="noopener noreferrer"><div class="social-icon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.58 2 12.23c0 4.52 2.87 8.35 6.84 9.71.5.1.68-.22.68-.49 0-.24-.01-1.05-.01-1.9-2.78.62-3.37-1.2-3.37-1.2-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.84.09-.66.35-1.11.64-1.36-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05a9.3 9.3 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.59.69.49A10.23 10.23 0 0 0 22 12.23C22 6.58 17.52 2 12 2Z"/></svg></div><div><h3>GitHub</h3><p>@Aaryan410</p></div><span class="social-arrow" aria-hidden="true">↗</span></a>
-      <div class="social-card social-pending" data-social="linkedin"><div class="social-icon social-letter" aria-hidden="true">in</div><div><h3>LinkedIn</h3><p>Link coming soon</p></div><span class="social-pending-label">SOON</span></div>
-      <div class="social-card social-pending" data-social="instagram"><div class="social-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></div><div><h3>Instagram</h3><p>Link coming soon</p></div><span class="social-pending-label">SOON</span></div>
-    </div><div class="connect-signoff reveal"><span>LET’S KEEP THE CURIOSITY GOING.</span><span aria-hidden="true">↗</span></div></div></section>
+        <p>
+          I’m a student in India. I started with C and Python through
+          CS50x and CS50P, and have been building web projects since.
+          These days I’m exploring machine learning and NLP, alongside
+          the occasional Linux rabbit hole.
+        </p>
+
+        <p>
+          I’m also part of Hack Club. Most of my projects start with
+          something I want to figure out, and grow as I learn enough
+          to take the next step.
+        </p>
+      </div>
+    </section>
+
+    <section
+      id="contact"
+      class="section section-grid contact-section"
+      aria-labelledby="contact-title"
+    >
+      <div class="section-heading">
+        <p class="section-index" aria-hidden="true">03 /</p>
+        <h2 id="contact-title">Contact</h2>
+      </div>
+
+      <div class="contact-copy">
+        <p class="contact-title">Have something in mind?</p>
+
+        <p>
+          A project, a question, or something you’re working on.
+          I’d like to hear about it.
+        </p>
+
+        <div class="link-row contact-links">
+          <!-- Enabled by main.js when real contact details are supplied. -->
+          <a class="text-link" id="email-link" hidden>Email</a>
+
+          <a class="text-link" href="https://github.com/Aaryan410">
+            GitHub <span aria-hidden="true">↗</span>
+          </a>
+
+          <a class="text-link" id="linkedin-link" hidden>
+            LinkedIn <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer class="site-footer"><div class="container footer-content"><a class="wordmark" href="#home">aaryan<span>.</span></a><p>© <span id="year">2026</span> Aaryan Jadav. Made with curiosity.</p><a class="back-to-top" href="#home">Back to top <span aria-hidden="true">↑</span></a></div></footer>
-
-  <dialog class="detail-dialog" id="detail-dialog" aria-labelledby="dialog-title"><button class="dialog-close" type="button" aria-label="Close details">×</button><div class="dialog-content"><p class="eyebrow" id="dialog-eyebrow"></p><h2 id="dialog-title"></h2><p id="dialog-description"></p><ul id="dialog-points"></ul><p class="dialog-note" id="dialog-note" hidden></p><a class="button button-lime" id="dialog-link" target="_blank" rel="noopener noreferrer">Explore <span aria-hidden="true">↗</span></a></div></dialog>
+  <footer class="site-footer container">
+    <p>© <span id="year">2026</span> Aaryan Jadav</p>
+    <a class="footer-link" href="#top">
+      Back to top <span aria-hidden="true">↑</span>
+    </a>
+  </footer>
 </body>
 </html>
