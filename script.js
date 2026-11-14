@@ -1,123 +1,319 @@
-console.log("script loaded");
+"use strict";
 
-const canvas = document.getElementById("rain");
-const ctx = canvas.getContext("2d");
+const reducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+);
 
-const TYPE_SPEED = 30;
-const DELETE_SPEED = 15;
-const READ_PAUSE = 2500;
-const NEXT_GAP = 300;
+// Small white particles behind the page.
+(() => {
+    const canvas = document.getElementById("particles");
+    const ctx = canvas?.getContext("2d");
 
-function resize() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
+    if (!ctx) return;
 
-resize();
-window.addEventListener("resize", resize);
+    let width = 0;
+    let height = 0;
+    let particles = [];
+    let frameId = null;
+    let lastTime = null;
 
-const chars = [
-    "0",
-    "1",
-    "const",
-    "let",
-    "if",
-    "for",
-    "=>",
-    "{}",
-    "();",
-    "&&",
-    "sudo",
-    "0x",
-    "int",
-    "def",
-    "==",
-    "++"
-];
+    const mouse = {
+        x: 0,
+        y: 0,
+        active: false
+    };
 
-const fontSize = window.innerWidth < 600 ? 22 : 16;
+    const random = (min, max) =>
+        min + Math.random() * (max - min);
 
-let columns = Math.floor(canvas.width / fontSize);
-let drops = [];
+    function makeParticle() {
+        const angle = random(0, Math.PI * 2);
+        const speed = random(3, 9);
 
-for (let i = 0; i < columns; i++) {
-    drops[i] = Math.random() * -50;
-}
+        return {
+            x: random(0, width),
+            y: random(0, height),
 
-function draw() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.09)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
 
-    ctx.fillStyle = "#00ff41";
-    ctx.font = fontSize + "px 'Space Grotesk', monospace";
+            offsetX: 0,
+            offsetY: 0,
 
-    for (let i = 0; i < drops.length; i++) {
-        const text =
-            chars[Math.floor(Math.random() * chars.length)];
+            radius: random(0.5, 1),
+            opacity: random(0.2, 0.65),
 
-        ctx.fillText(
-            text,
-            i * fontSize,
-            drops[i] * fontSize
+            angle
+        };
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = "#ffffff";
+
+        for (const p of particles) {
+            ctx.globalAlpha = p.opacity;
+
+            ctx.beginPath();
+
+            ctx.arc(
+                p.x + p.offsetX,
+                p.y + p.offsetY,
+                p.radius,
+                0,
+                Math.PI * 2
+            );
+
+            ctx.fill();
+        }
+
+        ctx.globalAlpha = 1;
+    }
+
+    function resize() {
+        const oldWidth = width;
+        const oldHeight = height;
+
+        width = Math.max(1, window.innerWidth);
+        height = Math.max(1, window.innerHeight);
+
+        // Sharp rendering without excessive high-DPI drawing costs.
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        canvas.width = Math.round(width * dpr);
+        canvas.height = Math.round(height * dpr);
+
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+        if (oldWidth && oldHeight) {
+            for (const p of particles) {
+                p.x *= width / oldWidth;
+                p.y *= height / oldHeight;
+            }
+        }
+
+        const mobile = width < 700;
+        const count = Math.round(width * height / 11000);
+
+        const target = Math.max(
+            mobile ? 20 : 80,
+            Math.min(mobile ? 50 : 150, count)
         );
 
-        if (
-            drops[i] * fontSize > canvas.height &&
-            Math.random() > 0.975
-        ) {
-            drops[i] = 0;
+        particles.length = Math.min(
+            particles.length,
+            target
+        );
+
+        while (particles.length < target) {
+            particles.push(makeParticle());
         }
 
-        drops[i]++;
+        draw();
     }
-}
 
-setInterval(draw, 33);
+    function update(dt) {
+        const easing = 1 - Math.exp(-4 * dt);
 
-const lines = [
-    "whoami?",
-    "student dev",
-    "techie",
-    "python | c++ | ml | cybersecurity",
-    "codeforces grinder",
-    "hack club member",
-    "building things that run"
-];
+        for (const p of particles) {
+            p.x += p.vx * dt;
+            p.y += p.vy * dt;
 
-const typedEl = document.getElementById("typed");
+            // Wrap outside the viewport.
+            if (p.x < -40) p.x = width + 40;
+            if (p.x > width + 40) p.x = -40;
 
-let lineIndex = 0;
-let charIndex = 0;
-let deleting = false;
+            if (p.y < -40) p.y = height + 40;
+            if (p.y > height + 40) p.y = -40;
 
-function type() {
-    const full = lines[lineIndex];
+            let pushX = 0;
+            let pushY = 0;
 
-    if (!deleting) {
-        charIndex++;
-        typedEl.textContent = full.slice(0, charIndex);
+            if (mouse.active) {
+                const dx = p.x - mouse.x;
+                const dy = p.y - mouse.y;
 
-        if (charIndex === full.length) {
-            deleting = true;
-            setTimeout(type, READ_PAUSE);
+                const distance = Math.hypot(dx, dy);
+
+                if (distance < 120) {
+                    const force =
+                        28 * (1 - distance / 120) ** 2;
+
+                    const directionX = distance
+                        ? dx / distance
+                        : Math.cos(p.angle);
+
+                    const directionY = distance
+                        ? dy / distance
+                        : Math.sin(p.angle);
+
+                    pushX = directionX * force;
+                    pushY = directionY * force;
+                }
+            }
+
+            // Ease back to natural drift when the cursor moves away.
+            p.offsetX += (pushX - p.offsetX) * easing;
+            p.offsetY += (pushY - p.offsetY) * easing;
+        }
+    }
+
+    function animate(now) {
+        frameId = null;
+
+        if (document.hidden || reducedMotion.matches) {
+            lastTime = null;
             return;
         }
 
-        setTimeout(type, TYPE_SPEED);
-    } else {
-        charIndex--;
+        const dt = lastTime === null
+            ? 0
+            : Math.min((now - lastTime) / 1000, 0.05);
+
+        lastTime = now;
+
+        update(dt);
+        draw();
+
+        frameId = requestAnimationFrame(animate);
+    }
+
+    function syncAnimation() {
+        if (frameId !== null) {
+            cancelAnimationFrame(frameId);
+        }
+
+        frameId = null;
+        lastTime = null;
+        mouse.active = false;
+
+        if (reducedMotion.matches) {
+            for (const p of particles) {
+                p.offsetX = 0;
+                p.offsetY = 0;
+            }
+
+            draw();
+        } else if (!document.hidden) {
+            frameId = requestAnimationFrame(animate);
+        }
+    }
+
+    window.addEventListener(
+        "pointermove",
+        (event) => {
+            if (
+                reducedMotion.matches ||
+                event.pointerType === "touch"
+            ) {
+                return;
+            }
+
+            mouse.x = event.clientX;
+            mouse.y = event.clientY;
+            mouse.active = true;
+        },
+        { passive: true }
+    );
+
+    const clearMouse = () => {
+        mouse.active = false;
+    };
+
+    document.documentElement.addEventListener(
+        "pointerleave",
+        clearMouse
+    );
+
+    window.addEventListener("blur", clearMouse);
+
+    window.addEventListener(
+        "resize",
+        resize,
+        { passive: true }
+    );
+
+    document.addEventListener(
+        "visibilitychange",
+        syncAnimation
+    );
+
+    reducedMotion.addEventListener(
+        "change",
+        syncAnimation
+    );
+
+    resize();
+    syncAnimation();
+})();
+
+// Keep the existing typing text below your name.
+(() => {
+    const typedEl = document.getElementById("typed");
+
+    if (!typedEl) return;
+
+    const lines = [
+        "whoami?",
+        "student dev",
+        "techie",
+        "python | c++ | ml | cybersecurity",
+        "codeforces grinder",
+        "hack club member",
+        "building things that run"
+    ];
+
+    let lineIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
+    let timer = null;
+
+    function type() {
+        if (document.hidden || reducedMotion.matches) {
+            return;
+        }
+
+        const full = lines[lineIndex];
+
+        charIndex += deleting ? -1 : 1;
         typedEl.textContent = full.slice(0, charIndex);
 
-        if (charIndex === 0) {
+        let delay = deleting ? 15 : 30;
+
+        if (!deleting && charIndex === full.length) {
+            deleting = true;
+            delay = 2500;
+        } else if (deleting && charIndex === 0) {
             deleting = false;
             lineIndex = (lineIndex + 1) % lines.length;
-
-            setTimeout(type, NEXT_GAP);
-            return;
+            delay = 300;
         }
 
-        setTimeout(type, DELETE_SPEED);
+        timer = setTimeout(type, delay);
     }
-}
 
-type();
+    function syncTyping() {
+        clearTimeout(timer);
+
+        if (reducedMotion.matches) {
+            typedEl.textContent = "student dev";
+        } else if (!document.hidden) {
+            typedEl.textContent =
+                lines[lineIndex].slice(0, charIndex);
+
+            timer = setTimeout(type, 30);
+        }
+    }
+
+    document.addEventListener(
+        "visibilitychange",
+        syncTyping
+    );
+
+    reducedMotion.addEventListener(
+        "change",
+        syncTyping
+    );
+
+    syncTyping();
+})();

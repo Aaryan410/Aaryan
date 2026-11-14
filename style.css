@@ -1,8 +1,9 @@
 :root {
-    --green: #00ff41;
     --black: #000000;
+    --white: #ffffff;
+    --text: #e8e8e8;
+    --muted: #999999;
     --gap: clamp(16px, 5vw, 80px);
-    --green-dim: #00b32c;
 }
 
 * {
@@ -11,42 +12,71 @@
     padding: 0;
 }
 
-html,
-body {
-    height: 100%;
+html {
+    background: var(--black);
 }
 
 body {
+    min-height: 100vh;
     background: var(--black);
-    color: var(--green);
+    color: var(--text);
     font-family: "Space Grotesk", sans-serif;
     line-height: 1.6;
     padding: var(--gap);
+    isolation: isolate;
 }
 
-.box {
-    background: var(--black);
-    border: 2px solid var(--green);
-    padding: 20px;
+::selection {
+    background: var(--white);
+    color: var(--black);
 }
 
 a {
-    color: var(--green);
+    color: var(--white);
 }
 
+/* Background particles */
+
+#particles {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Main layout */
+
 .wrap {
+    position: relative;
+    z-index: 1;
+
     min-height: calc(100vh - 2 * var(--gap));
+
     display: grid;
     grid-template-columns:
-        minmax(260px, 24%)
-        1fr
+        minmax(220px, 24%)
+        minmax(0, 1fr)
         minmax(240px, 28%);
+
     grid-template-rows: auto 1fr auto;
+
     grid-template-areas:
         "photo info projects"
         "photo certs projects"
         "links links links";
+
     gap: 16px;
+}
+
+.box {
+    min-width: 0;
+    background: var(--black);
+    border: 2px solid var(--white);
+    padding: 20px;
+    overflow-wrap: anywhere;
 }
 
 .photo-box {
@@ -58,12 +88,16 @@ a {
     grid-area: info;
 }
 
-.links-box {
-    grid-area: links;
+.certs-box {
+    grid-area: certs;
 }
 
 .projects-box {
     grid-area: projects;
+}
+
+.links-box {
+    grid-area: links;
 }
 
 .links-box,
@@ -73,29 +107,40 @@ a {
     flex-direction: column;
 }
 
-#rain {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
+.box h2 {
+    font-size: 1.25rem;
+    font-weight: 500;
+    margin-bottom: 12px;
 }
 
-.wrap {
-    position: relative;
-    z-index: 1;
+.info-box h2 {
+    margin-top: 20px;
 }
+
+.info-box > p {
+    margin-top: 6px;
+}
+
+/* Typing line */
 
 .whoami {
     margin-top: 6px;
+    margin-bottom: 14px;
     font-size: 0.95rem;
-    color: var(--green-dim);
+    color: var(--muted);
     min-height: 1.6em;
+}
+
+#prompt {
+    color: var(--white);
+    font-weight: 700;
 }
 
 .cursor {
     display: inline-block;
     width: 0.55em;
     height: 1em;
-    background: var(--green);
+    background: var(--white);
     vertical-align: -0.15em;
     margin-left: 3px;
     animation: blink 1s steps(1) infinite;
@@ -107,10 +152,7 @@ a {
     }
 }
 
-.prompt {
-    color: var(--green);
-    font-weight: 700;
-}
+/* Project, certificate and social links */
 
 .links {
     display: flex;
@@ -123,17 +165,19 @@ a {
     display: flex;
     align-items: center;
     gap: 12px;
+
     width: 100%;
     padding: 12px 18px;
-    background: var(--green);
-    color: var(--black);
+
+    background: var(--black);
+    color: var(--text);
+    border: 1px solid var(--white);
+
     text-decoration: none;
-    border: 2px solid var(--green);
+
     transition:
-        background 0.15s,
-        color 0.15s,
-        transform 0.15s,
-        box-shadow 0.15s;
+        background-color 180ms ease,
+        color 180ms ease;
 }
 
 .link svg {
@@ -146,7 +190,9 @@ a {
 .link-text {
     display: flex;
     flex-direction: column;
-    line-height: 1.2;
+    min-width: 0;
+    gap: 4px;
+    line-height: 1.35;
 }
 
 .link-name {
@@ -157,45 +203,56 @@ a {
 .link-user {
     font-weight: 400;
     font-size: 0.8rem;
+    color: var(--muted);
+    transition: color 180ms ease;
 }
 
-.link:hover,
-.link:focus-visible {
-    background: var(--black);
-    color: var(--green);
-    transform: translateY(-3px);
-    box-shadow:
-        0 6px 0 var(--green-dim),
-        0 0 26px rgba(0, 255, 65, 0.45);
-    outline: none;
+.link:hover {
+    background: var(--white);
+    color: var(--black);
 }
+
+.link:hover .link-user {
+    color: #333333;
+}
+
+a:focus-visible {
+    outline: 2px solid var(--white);
+    outline-offset: 4px;
+}
+
+/* Photo */
 
 .photo-slot {
     overflow: hidden;
 }
 
 .photo-slot img {
+    display: block;
     width: 100%;
     height: auto;
     object-fit: cover;
-    display: block;
-    filter:
-        grayscale(1)
-        contrast(1.15)
-        brightness(0.9)
-        sepia(1)
-        hue-rotate(65deg)
-        saturate(3);
+
+    filter: grayscale(1) contrast(1.08);
+
+    transition: filter 180ms ease;
 }
 
 .photo-slot:hover img {
-    filter: none;
+    filter: grayscale(1) contrast(1.15);
 }
+
+/* Existing name effect, now monochrome */
 
 .name {
     position: relative;
     display: inline-block;
     cursor: default;
+
+    color: var(--white);
+    font-size: clamp(1.75rem, 2.5vw, 2.5rem);
+    line-height: 1.2;
+
     animation: jitter 3s steps(1) infinite;
 }
 
@@ -206,32 +263,25 @@ a {
     inset: 0;
     opacity: 0;
     pointer-events: none;
+
     animation: ghost 3s steps(1) infinite;
 }
 
 .name::before {
-    color: #00ffd5;
+    color: var(--white);
     transform: translate(-3px, 0);
     clip-path: inset(0 0 55% 0);
 }
 
 .name::after {
-    color: #b8ff00;
+    color: #888888;
     transform: translate(3px, 0);
     clip-path: inset(50% 0 0 0);
 }
 
-.name.glitch {
-    animation: jitter 0.35s steps(2) 1;
-}
-
-.name.glitch::before,
-.name.glitch::after {
-    opacity: 0.85;
-}
-
 @keyframes jitter {
-    0% {
+    0%,
+    100% {
         transform: translate(0, 0);
     }
 
@@ -245,10 +295,6 @@ a {
 
     75% {
         transform: translate(-1px, -1px);
-    }
-
-    100% {
-        transform: translate(0, 0);
     }
 }
 
@@ -265,10 +311,39 @@ a {
     }
 }
 
-@media (max-width: 860px) {
+/* Tablet layout */
+
+@media (min-width: 701px) and (max-width: 1100px) {
     .wrap {
-        grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto auto auto;
+        grid-template-columns:
+            minmax(180px, 34%)
+            minmax(0, 1fr);
+
+        grid-template-rows: repeat(4, auto);
+
+        grid-template-areas:
+            "photo info"
+            "photo certs"
+            "projects projects"
+            "links links";
+
+        align-items: start;
+    }
+
+    .photo-box {
+        width: 100%;
+        max-width: 340px;
+        justify-self: center;
+    }
+}
+
+/* Mobile layout */
+
+@media (max-width: 700px) {
+    .wrap {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: repeat(5, auto);
+
         grid-template-areas:
             "photo"
             "info"
@@ -278,64 +353,37 @@ a {
     }
 
     .photo-box {
-        max-width: 340px;
         width: 100%;
+        max-width: 340px;
         justify-self: center;
     }
 
-    .link {
-        display: block;
-        margin-top: 10px;
-    }
-}
-
-@media (max-width: 480px) {
     .box {
-        padding: 14px;
+        padding: 16px;
+    }
+
+    .link {
+        padding: 12px;
     }
 
     .name {
-        font-size: clamp(2rem, 10vw, 3rem);
+        font-size: clamp(1.75rem, 7vw, 2.5rem);
     }
 }
 
-@media (hover: none) {
-    .photo-slot img {
-        filter: none;
-    }
-}
+/* Accessibility */
 
-@media (max-width: 1100px) and (min-width: 481px) {
-    .wrap {
-        grid-template-columns: minmax(180px, 34%) 1fr;
-        grid-template-rows: auto auto 1fr;
-        grid-template-areas:
-            "photo info"
-            "links certs"
-            "projects projects"
-            ". certs";
-        align-items: start;
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
     }
 
-    .photo-box {
-        max-width: 340px;
-        justify-self: center;
-    }
-
-    .links-box {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .info-box {
-        align-self: stretch;
-    }
-
-    .links {
-        flex-direction: column;
-    }
-
-    .link {
-        width: 100%;
+    .name::before,
+    .name::after,
+    .cursor {
+        display: none;
     }
 }
